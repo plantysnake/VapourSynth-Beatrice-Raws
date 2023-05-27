@@ -8,8 +8,8 @@ USER app
 WORKDIR /tmp
 
 RUN <<-'EOL'
-	sudo pacman -Sy --noconfirm 
-	sudo pacman -S --noconfirm meson 
+	sudo pacman -Sy --noconfirm 2>/dev/null
+	sudo pacman -S --noconfirm meson 2>/dev/null
 	mkdir -p /home/app/.cache/paru/clone 2>/dev/null
 EOL
 
