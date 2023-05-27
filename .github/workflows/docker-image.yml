@@ -1,0 +1,70 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Dockerfile'
+  workflow_dispatch:
+  schedule:
+    # Runs at 00:00 UTC+3 on Fri.
+    - cron: '0 21 * * THU'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: 'main'
+      -
+        name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Inspect builder
+        run: |
+          echo "Name:      ${{ steps.buildx.outputs.name }}"
+          echo "Endpoint:  ${{ steps.buildx.outputs.endpoint }}"
+          echo "Status:    ${{ steps.buildx.outputs.status }}"
+          echo "Flags:     ${{ steps.buildx.outputs.flags }}"
+          echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Docker Metadata action
+        id: docker_meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/planty-vapour
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,enable=true,prefix=sha-,format=short
+            type=raw,value={{date 'YY.MM.DDDD.HHmm' tz='Europe/Minsk'}},enable=true
+          labels: |
+            maintainer=${{ secrets.maintainer }}
+            org.opencontainers.image.licenses=MIT
+      -
+        name: Build & Push the Docker image
+        id: docker_build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+          cache-from: type=registry,ref=archlinux:base-devel
+          cache-to: type=inline
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
