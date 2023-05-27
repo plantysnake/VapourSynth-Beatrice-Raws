@@ -1,7 +1,11 @@
 # syntax=docker/dockerfile:1.5
 FROM fr3akyphantom/vapoursynth-av1an-rt:latest
 
+SHELL ["/bin/bash", "-c"]
+
 USER app
+
+WORKDIR /tmp
 
 RUN <<-'EOL'
     set -ex  
