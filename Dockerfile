@@ -8,7 +8,12 @@ RUN <<-'EOL'
 	export PARU_OPTS="--skipreview --noprovides --removemake --cleanafter --useask --combinedupgrade --batchinstall --nokeepsrc" 
 	sudo pacman -Sy --noconfirm 
 	sudo pacman -S --noconfirm meson 
-	mkdir -p /home/app/.cache/paru/clone 2>/dev/null 
+	mkdir -p /home/app/.cache/paru/clone 2>/dev/null
+EOL
+
+RUN <<-'EOL'
+    set -ex  
+	export PARU_OPTS="--skipreview --noprovides --removemake --cleanafter --useask --combinedupgrade --batchinstall --nokeepsrc" 
 	echo -e "[+] Custom x265 install Starts Here" 
 	cd /tmp 
 	sudo pacman -Rdd x265-git --noconfirm 
@@ -34,6 +39,9 @@ RUN <<-'EOL'
 	echo -e "[i] Plugins configuration" 
 	sudo libtool --finish /usr/lib/vapoursynth &>/dev/null 
 	sudo ldconfig 2>/dev/null 
+EOL
+
+RUN <<-'EOL'
 	echo -e "[i] Home directory Investigation" 
 	sudo du -sh ~/\.[a-z]* 2>/dev/null 
 	echo -e "[<] Cleanup" 
