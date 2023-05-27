@@ -8,8 +8,6 @@ USER app
 WORKDIR /tmp
 
 RUN <<-'EOL'
-    set -ex  
-	export PARU_OPTS="--skipreview --noprovides --removemake --cleanafter --useask --combinedupgrade --batchinstall --nokeepsrc" 
 	sudo pacman -Sy --noconfirm 
 	sudo pacman -S --noconfirm meson 
 	mkdir -p /home/app/.cache/paru/clone 2>/dev/null
