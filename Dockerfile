@@ -8,13 +8,10 @@ USER app
 WORKDIR /tmp
 
 RUN <<-'EOL'
+    set -ex  
 	sudo pacman -Sy --noconfirm 2>/dev/null
 	sudo pacman -S --noconfirm meson 2>/dev/null
 	mkdir -p /home/app/.cache/paru/clone 2>/dev/null
-EOL
-
-RUN <<-'EOL'
-    set -ex  
 	export PARU_OPTS="--skipreview --noprovides --removemake --cleanafter --useask --combinedupgrade --batchinstall --nokeepsrc" 
 	echo -e "[+] Custom x265 install Starts Here" 
 	cd /tmp 
@@ -41,9 +38,6 @@ RUN <<-'EOL'
 	echo -e "[i] Plugins configuration" 
 	sudo libtool --finish /usr/lib/vapoursynth &>/dev/null 
 	sudo ldconfig 2>/dev/null 
-EOL
-
-RUN <<-'EOL'
 	echo -e "[i] Home directory Investigation" 
 	sudo du -sh ~/\.[a-z]* 2>/dev/null 
 	echo -e "[<] Cleanup" 
