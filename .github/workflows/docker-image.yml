@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   schedule:
     # Runs at 00:00 UTC+3 on Fri.
-    - cron: '0 21 * * THU'
+    - cron: '0 21 10 * *'
 
 jobs:
 
@@ -49,7 +49,7 @@ jobs:
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=sha,enable=true,prefix=sha-,format=short
-            type=raw,value={{date 'YY.MM.DDDD.HHmm' tz='Europe/Minsk'}},enable=true
+            type=raw,value={{date 'YY.MM.DD.HH_mm' tz='Europe/Minsk'}},enable=true
           labels: |
             maintainer=${{ secrets.maintainer }}
             org.opencontainers.image.licenses=MIT
