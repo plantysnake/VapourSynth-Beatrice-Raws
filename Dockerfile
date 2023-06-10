@@ -20,17 +20,11 @@ RUN <<-'EOL'
 	cd x265-aMod 
 	paru -Ui --noconfirm --needed ${PARU_OPTS} --mflags="--force" --rebuild && cd .. 
 	echo -e "[+] vapoursynth additional Plugins Installation Block Starts Here" 
-	cd /tmp && yes | CFLAGS+=' -Wno-unused-parameter -Wno-deprecated-declarations -Wno-unknown-pragmas -Wno-implicit-fallthrough' CXXFLAGS+=' -Wno-unused-parameter -Wno-deprecated-declarations -Wno-unknown-pragmas -Wno-implicit-fallthrough' paru -S --needed ${PARU_OPTS} vapoursynth-plugin-d2vsource-git vapoursynth-plugin-damb-git vapoursynth-plugin-dctfilter-git vapoursynth-plugin-fftspectrum-git vapoursynth-plugin-fieldhint-git vapoursynth-plugin-fixtelecinedfades-git vapoursynth-plugin-histogram-git vapoursynth-plugin-imwri-git vapoursynth-plugin-motionmask-git vapoursynth-plugin-nnedi3-git vapoursynth-plugin-nnedi3cl-git vapoursynth-plugin-nnedi3_weights_bin vapoursynth-plugin-vsrawsource-git vapoursynth-plugin-scxvid-git vapoursynth-plugin-smoothuv-git vapoursynth-plugin-tcolormask-git vapoursynth-plugin-tonemap-git vapoursynth-plugin-vmaf-git vapoursynth-plugin-awarpsharp2-git vapoursynth-plugin-znedi3-git vapoursynth-plugin-vivtc-git vapoursynth-plugin-removegrain-git vapoursynth-plugin-vine-git vapoursynth-plugin-subtext-git vapoursynth-plugin-subtext-git vapoursynth-plugin-tdeintmod-git 
-	echo -e "[+] EdgeFixer.git install" 
-	mkdir -p /home/app/EdgeFixer 
-	cd /home/app/EdgeFixer 
-	git clone https://github.com/plantysnake/EdgeFixer.git 
-	cd EdgeFixer 
-	makepkg -si --noconfirm 
+	cd /tmp && yes | CFLAGS+=' -Wno-unused-parameter -Wno-deprecated-declarations -Wno-unknown-pragmas -Wno-implicit-fallthrough' CXXFLAGS+=' -Wno-unused-parameter -Wno-deprecated-declarations -Wno-unknown-pragmas -Wno-implicit-fallthrough' paru -S --needed ${PARU_OPTS} vapoursynth-plugin-d2vsource-git vapoursynth-plugin-damb-git vapoursynth-plugin-dctfilter-git vapoursynth-plugin-fftspectrum-git vapoursynth-plugin-fieldhint-git vapoursynth-plugin-fixtelecinedfades-git vapoursynth-plugin-histogram-git vapoursynth-plugin-imwri-git vapoursynth-plugin-motionmask-git vapoursynth-plugin-nnedi3-git vapoursynth-plugin-nnedi3cl-git vapoursynth-plugin-nnedi3_weights_bin vapoursynth-plugin-vsrawsource-git vapoursynth-plugin-scxvid-git vapoursynth-plugin-smoothuv-git vapoursynth-plugin-tcolormask-git vapoursynth-plugin-tonemap-git vapoursynth-plugin-vmaf-git vapoursynth-plugin-awarpsharp2-git vapoursynth-plugin-znedi3-git vapoursynth-plugin-vivtc-git vapoursynth-plugin-removegrain-git vapoursynth-plugin-vine-git vapoursynth-plugin-subtext-git vapoursynth-plugin-subtext-git vapoursynth-plugin-tdeintmod-git vapoursynth-plugin-edgefixer-git 
 	echo -e "[+] TMaskCleaner.git install" 
 	mkdir -p /home/app/TMaskCleaner 
 	cd /home/app/TMaskCleaner 
-	git clone https://github.com/plantysnake/VapourSynth-TMaskCleaner.git 
+	git clone https://github.com/Beatrice-Raws/VapourSynth-TMaskCleaner
 	cd VapourSynth-TMaskCleaner 
 	meson build 
 	ninja -C build 
